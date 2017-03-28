@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.fsj.entity.Message" table="MESSAGE">
+		<id name="mid" type="int" length="11">
+			<generator class="native" />
+		</id>
+		<property name="content" type="java.lang.String">
+			<column name="content" not-null="true"></column>
+		</property>
+		<property name="pushtime" type="date">
+			<column name="pushtime" not-null="true"></column>
+		</property>
+		<property name="state" type="java.lang.String">
+			<column name="state" not-null="true"></column>
+		</property>
+
+		<!-- 配置多对一 -->
+		<many-to-one name="users" column="users_id" class="com.fsj.entity.Users"
+			cascade="all"></many-to-one>
+	</class>
+</hibernate-mapping>

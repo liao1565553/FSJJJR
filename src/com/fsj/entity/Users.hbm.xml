@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.fsj.entity.Users" table="USERS">
+		<id name="phone" column="phone" type="java.lang.String" length="18">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="isflag" type="java.lang.Boolean">
+			<column name="isflag" not-null="true"></column>
+		</property>
+		<property name="uidcard" type="java.lang.String">
+			<column name="uidcard" length="18" not-null="false"></column>
+		</property>
+		<property name="email" type="java.lang.String">
+			<column name="email" not-null="false"></column>
+		</property>
+		<property name="realname" type="java.lang.String">
+			<column name="realname" length="11" not-null="false"></column>
+		</property>
+		<property name="username" type="java.lang.String">
+			<column name="username" length="11" not-null="true"></column>
+		</property>
+		<property name="password" type="java.lang.String">
+			<column name="password" length="11" not-null="true"></column>
+		</property>
+		<property name="sex" type="java.lang.String">
+			<column name="sex" length="2" not-null="false"></column>
+		</property>
+		<property name="address" type="java.lang.String">
+			<column name="address" not-null="false"></column>
+		</property>
+		<property name="job" type="java.lang.String">
+			<column name="job" not-null="false"></column>
+		</property>
+		<property name="money" type="int">
+			<column name="money" length="11" not-null="false"></column>
+		</property>
+		<property name="integral" type="int">
+			<column name="integral" length="11" not-null="false"></column>
+		</property>
+		<property name="registrationtime" type="date">
+			<column name="registrationtime" not-null="true"></column>
+		</property>
+
+		<!-- 配置多对一 -->
+		<many-to-one name="department" column="department_id"
+			class="com.fsj.entity.Department" cascade="all"></many-to-one>
+		<many-to-one name="pusers" column="users_id" class="com.fsj.entity.Users"
+			cascade="all"></many-to-one>
+
+		<!-- 配置一对多，设置inverse属性为true，由多方维护关联关系 -->
+		<set name="susers" table="USERS" inverse="true" cascade="all">
+			<key column="users_id"></key>
+			<one-to-many class="com.fsj.entity.Users" />
+		</set>
+		<set name="img" table="IMG" inverse="true" cascade="all">
+			<key column="users_id"></key>
+			<one-to-many class="com.fsj.entity.Img" />
+		</set>
+		<set name="message" table="MESSAGE" inverse="true" cascade="all">
+			<key column="users_id"></key>
+			<one-to-many class="com.fsj.entity.Message" />
+		</set>
+		<set name="custom" table="CUSTOM" inverse="true" cascade="all">
+			<key column="users_id"></key>
+			<one-to-many class="com.fsj.entity.Custom" />
+		</set>
+		<set name="recommended" table="RECOMMENDED" inverse="true"
+			cascade="all">
+			<key column="users_id"></key>
+			<one-to-many class="com.fsj.entity.Recommended" />
+		</set>
+		<set name="schedule" table="SCHEDULE" inverse="true" cascade="all">
+			<key column="users_id"></key>
+			<one-to-many class="com.fsj.entity.Schedule" />
+		</set>
+		<set name="pricetrend" table="PRICETREND" inverse="true" cascade="all">
+			<key column="users_id"></key>
+			<one-to-many class="com.fsj.entity.Pricetrend" />
+		</set>
+
+		<!-- 配置多对多 -->
+		<set name="house" table="users_house" cascade="all">
+			<key column="users_id"></key>
+			<many-to-many class="com.fsj.entity.House" column="house_id"></many-to-many>
+		</set>
+		<set name="managergroup" table="users_managergroup" cascade="all">
+			<key column="users_id"></key>
+			<many-to-many class="com.fsj.entity.Managergroup"
+				column="managergroup_id"></many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>

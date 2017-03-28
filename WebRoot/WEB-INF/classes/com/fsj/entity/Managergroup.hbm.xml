@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.fsj.entity.Managergroup" table="MANAGERGROUP">
+		<id name="mgid" type="int" length="11">
+			<generator class="native" />
+		</id>
+		<property name="name" type="java.lang.String">
+			<column name="name" length="10" not-null="true"></column>
+		</property>
+		<property name="introduction" type="java.lang.String">
+			<column name="introduction" not-null="true"></column>
+		</property>
+
+		<!-- 配置多对多 -->
+		<set name="users" table="users_managergroup" cascade="all">
+			<key column="managergroup_id"></key>
+			<many-to-many class="com.fsj.entity.Users" column="users_id"></many-to-many>
+		</set>
+		<set name="action" table="managergroup_action" cascade="all">
+			<key column="managergroup_id"></key>
+			<many-to-many class="com.fsj.entity.Action" column="action_id"></many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>

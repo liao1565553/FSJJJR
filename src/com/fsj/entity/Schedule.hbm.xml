@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.fsj.entity.Schedule" table="SCHEDULE">
+		<id name="sid" type="int" length="11">
+			<generator class="native" />
+		</id>
+		<property name="updatetime" type="date">
+			<column name="updatetime" not-null="true"></column>
+		</property>
+		<property name="remarks" type="java.lang.String">
+			<column name="remarks" not-null="true"></column>
+		</property>
+
+		<!-- 配置多对一 -->
+		<many-to-one name="users" column="users_id" class="com.fsj.entity.Users"
+			cascade="all"></many-to-one>
+		<many-to-one name="house" column="house_id" class="com.fsj.entity.House"
+			cascade="all"></many-to-one>
+		<many-to-one name="schedulestate" column="schedulestate_id"
+			class="com.fsj.entity.Schedulestate" cascade="all"></many-to-one>
+		<many-to-one name="custom" column="custom_id" class="com.fsj.entity.Custom"
+			cascade="all"></many-to-one>
+		<many-to-one name="recommended" class="com.fsj.entity.Recommended"
+			cascade="all">
+			<column name="rcustom_id"></column>
+			<column name="rusers_id"></column>
+		</many-to-one>
+	</class>
+</hibernate-mapping>

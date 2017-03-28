@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.fsj.entity.Custom" table="CUSTOM">
+		<id name="phone" type="java.lang.String" length="11">
+			<generator class="assigned" />
+		</id>
+		<property name="isflag" type="java.lang.Boolean">
+			<column name="isflag" not-null="true"></column>
+		</property>
+		<property name="registtime" type="date">
+			<column name="registtime" not-null="true"></column>
+		</property>
+		<property name="name" type="java.lang.String">
+			<column name="name" length="11" not-null="true"></column>
+		</property>
+		<property name="sex" type="java.lang.String">
+			<column name="sex" length="2" not-null="false"></column>
+		</property>
+		<property name="age" type="java.lang.String">
+			<column name="age" not-null="false"></column>
+		</property>
+		<property name="family" type="java.lang.String">
+			<column name="family" not-null="false"></column>
+		</property>
+		<property name="marry" type="java.lang.String">
+			<column name="marry" not-null="false"></column>
+		</property>
+		<property name="edulevel" type="java.lang.String">
+			<column name="edulevel" not-null="false"></column>
+		</property>
+		<property name="hobby" type="java.lang.String">
+			<column name="hobby" not-null="false"></column>
+		</property>
+		<property name="salarylevel" type="java.lang.String">
+			<column name="salarylevel" not-null="false"></column>
+		</property>
+		<property name="housetype" type="java.lang.String">
+			<column name="housetype" not-null="false"></column>
+		</property>
+		<property name="housetimes" type="java.lang.String">
+			<column name="housetimes" not-null="false"></column>
+		</property>
+		<property name="carprice" type="java.lang.String">
+			<column name="carprice" not-null="false"></column>
+		</property>
+		<property name="fromarea" type="java.lang.String">
+			<column name="fromarea" not-null="false"></column>
+		</property>
+		<property name="address" type="java.lang.String">
+			<column name="address" not-null="false"></column>
+		</property>
+		<property name="workspace" type="java.lang.String">
+			<column name="workspace" not-null="false"></column>
+		</property>
+		<property name="trade" type="java.lang.String">
+			<column name="trade" not-null="false"></column>
+		</property>
+		<property name="firmtype" type="java.lang.String">
+			<column name="firmtype" not-null="false"></column>
+		</property>
+		<property name="job" type="java.lang.String">
+			<column name="job" not-null="false"></column>
+		</property>
+		<property name="productneed" type="java.lang.String">
+			<column name="productneed" not-null="false"></column>
+		</property>
+		<property name="houseneed" type="java.lang.String">
+			<column name="houseneed" not-null="false"></column>
+		</property>
+		<property name="areaneed" type="java.lang.String">
+			<column name="areaneed" not-null="false"></column>
+		</property>
+		<property name="budget" type="java.lang.String">
+			<column name="budget" not-null="false"></column>
+		</property>
+		<property name="attention" type="java.lang.String">
+			<column name="attention" not-null="false"></column>
+		</property>
+		<property name="wantarea" type="java.lang.String">
+			<column name="wantarea" not-null="false"></column>
+		</property>
+		<property name="informationsources" type="java.lang.String">
+			<column name="informationsources" not-null="false"></column>
+		</property>
+
+		<!-- 配置多对一 -->
+		<many-to-one name="users" column="users_id"
+			class="com.fsj.entity.Users" cascade="all"></many-to-one>
+
+		<!-- 配置一对多，设置inverse属性为true，由多方维护关联关系 -->
+		<set name="recommended" table="RECOMMENDED" inverse="true"
+			cascade="all">
+			<key column="custom_id"></key>
+			<one-to-many class="com.fsj.entity.Recommended" />
+		</set>
+		<set name="schedule" table="SCHEDULE" inverse="true" cascade="all">
+			<key column="custom_id"></key>
+			<one-to-many class="com.fsj.entity.Schedule" />
+		</set>
+	</class>
+</hibernate-mapping>

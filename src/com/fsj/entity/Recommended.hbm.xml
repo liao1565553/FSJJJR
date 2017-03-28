@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.fsj.entity.Recommended" table="RECOMMENDED">
+		<composite-id>
+			<key-property name="custom" column="rcustom_id" type="java.lang.String"></key-property>
+			<key-property name="users" column="rusers_id" type="java.lang.String"></key-property>
+		</composite-id>
+		<property name="isflag" type="java.lang.Boolean">
+			<column name="isflag" not-null="true"></column>
+		</property>
+
+		<!-- 配置多对一 -->
+		<many-to-one name="custom" column="custom_id" class="com.fsj.entity.Custom"
+			cascade="all"></many-to-one>
+		<many-to-one name="users" column="users_id" class="com.fsj.entity.Users"
+			cascade="all"></many-to-one>
+
+		<!-- 配置一对多，设置inverse属性为true，由多方维护关联关系 -->
+		<set name="schedule" table="SCHEDULE" inverse="true" cascade="all">
+			<key>
+				<column name="rcustom_id"></column>
+				<column name="rusers_id"></column>
+			</key>
+			<one-to-many class="com.fsj.entity.Schedule" />
+		</set>
+
+		<!-- 配置多对多 -->
+		<set name="house" table="recommended_house" cascade="all">
+			<key>
+				<column name="rcustom_id"></column>
+				<column name="rusers_id"></column>
+			</key>
+			<many-to-many class="com.fsj.entity.House" column="house_id"></many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>

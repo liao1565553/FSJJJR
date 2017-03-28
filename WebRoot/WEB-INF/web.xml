@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>StudentForecast</display-name>
+  
+  <!-- authority filter 最好加在Struts2的Filter前面-->  
+  <filter>  
+    <filter-name>SessionInvalidate</filter-name>  
+    <filter-class>com.fsj.util.LoginFilter</filter-class>  
+    <init-param>  
+      <param-name>checkSessionKey</param-name>  
+      <param-value>users</param-value>  
+    </init-param>  
+    <init-param>  
+      <param-name>redirectURL</param-name>  
+      <param-value>/logout.jsp</param-value>  <!-- 改成类似index.jsp的页面进行跳转 -->
+    </init-param>  
+    <init-param>  
+      <param-name>notCheckURLList</param-name>  
+      <param-value>/logout.jsp,/admin/logout.jsp,/Login_login.action,/admin/Login_loginAdmin.action</param-value>  
+    </init-param>  
+  </filter>  
+  <!--过滤/文件夹下所有jsp和action  --> 
+  <filter-mapping>  
+    <filter-name>SessionInvalidate</filter-name>  
+    <url-pattern>/*</url-pattern>  
+  </filter-mapping>  
+  
+  <filter>
+    <filter-name>struts2</filter-name>
+    <filter-class>
+	   	   org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
+	    </filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>struts2</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <welcome-file-list>
+  	<welcome-file>logout.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

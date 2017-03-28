@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.devMode" value="true" />
+	<package name="default" namespace="/" extends="struts-default">
+		<global-results>
+			<result type="dispatcher" name="error">/error.jsp</result>
+			<result type="dispatcher" name="input">/input.jsp</result>
+		</global-results>
+	</package>
+	<package name="jjr" namespace="/" extends="default">
+		<action name="*_*" class="com.fsj.action.{1}Action" method="{2}">
+			<result name="{2}">/{2}.jsp</result>
+			<result name="failure">/logout.jsp</result>
+		</action>
+	</package>
+	<package name="admin" namespace="/admin" extends="default">
+		<action name="*_*" class="com.fsj.action.{1}Action" method="{2}">
+			<result name="{2}">/admin/{2}.jsp</result>
+			<result name="failure">/admin/logout.jsp</result>
+		</action>
+	</package>
+</struts>

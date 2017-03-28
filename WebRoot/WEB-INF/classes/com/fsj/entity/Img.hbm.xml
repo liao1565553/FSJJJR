@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.fsj.entity.Img" table="IMG">
+		<id name="iid" type="int" length="11">
+			<generator class="native" />
+		</id>
+		<property name="absolutepath" type="java.lang.String">
+			<column name="absolutepath" not-null="true"></column>
+		</property>
+		<property name="relativepath" type="java.lang.String">
+			<column name="relativepath" not-null="true"></column>
+		</property>
+		<property name="filename" type="java.lang.String">
+			<column name="filename" not-null="true"></column>
+		</property>
+		<property name="suffixname" type="java.lang.String">
+			<column name="suffixname" not-null="true"></column>
+		</property>
+		<property name="filetype" type="java.lang.String">
+			<column name="filetype" not-null="true"></column>
+		</property>
+
+		<!-- 配置多对一 -->
+		<many-to-one name="users" column="users_id" class="com.fsj.entity.Users"
+			cascade="all"></many-to-one>
+		<many-to-one name="house" column="house_id" class="com.fsj.entity.House"
+			cascade="all"></many-to-one>
+	</class>
+</hibernate-mapping>

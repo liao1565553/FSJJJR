@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.fsj.entity.House" table="HOUSE">
+		<id name="hid" type="int" length="11">
+			<generator class="native" />
+		</id>
+		<property name="oldflag" type="java.lang.Boolean">
+			<column name="oldflag" not-null="true"></column>
+		</property>
+		<property name="title" type="java.lang.String">
+			<column name="title" not-null="true"></column>
+		</property>
+		<property name="type" type="java.lang.String">
+			<column name="type" not-null="true"></column>
+		</property>
+		<property name="salestate" type="java.lang.String">
+			<column name="salestate" not-null="true"></column>
+		</property>
+		<property name="opendate" type="date">
+			<column name="opendate" not-null="true"></column>
+		</property>
+		<property name="unitprice" type="int">
+			<column name="unitprice" length="11" not-null="false"></column>
+		</property>
+		<property name="totalprice" type="int">
+			<column name="totalprice" length="11" not-null="false"></column>
+		</property>
+		<property name="decorationdegree" type="java.lang.String">
+			<column name="decorationdegree" not-null="true"></column>
+		</property>
+		<property name="floortype" type="java.lang.String">
+			<column name="floortype" not-null="true"></column>
+		</property>
+		<property name="coordinate" type="java.lang.String">
+			<column name="coordinate" not-null="true"></column>
+		</property>
+		<property name="estateaddress" type="java.lang.String">
+			<column name="estateaddress" not-null="true"></column>
+		</property>
+		<property name="roomrate" type="double">
+			<column name="roomrate" not-null="false"></column>
+		</property>
+		<property name="greeningrate" type="double">
+			<column name="greeningrate" not-null="false"></column>
+		</property>
+		<property name="volumerate" type="double">
+			<column name="volumerate" not-null="false"></column>
+		</property>
+		<property name="builtuparea" type="double">
+			<column name="builtuparea" not-null="false"></column>
+		</property>
+		<property name="coversarea" type="double">
+			<column name="coversarea" not-null="false"></column>
+		</property>
+		<property name="parkingspace" type="java.lang.String">
+			<column name="parkingspace" not-null="false"></column>
+		</property>
+		<property name="propertyfee" type="int">
+			<column name="propertyfee" length="11" not-null="false"></column>
+		</property>
+		<property name="propertycompany" type="java.lang.String">
+			<column name="propertycompany" not-null="false"></column>
+		</property>
+		<property name="propertyaddress" type="java.lang.String">
+			<column name="propertyaddress" not-null="false"></column>
+		</property>
+		<property name="developers" type="java.lang.String">
+			<column name="developers" not-null="false"></column>
+		</property>
+		<property name="otherInfo" type="java.lang.String">
+			<column name="otherInfo" not-null="false"></column>
+		</property>
+		<property name="introduction" type="java.lang.String">
+			<column name="introduction" not-null="false"></column>
+		</property>
+		<property name="releasetime" type="date">
+			<column name="releasetime" not-null="true"></column>
+		</property>
+		<property name="households" type="int">
+			<column name="households" length="11" not-null="false"></column>
+		</property>
+		<property name="commission" type="int">
+			<column name="commission" length="11" not-null="false"></column>
+		</property>
+		<property name="approve" type="java.lang.String">
+			<column name="approve" not-null="true"></column>
+		</property>
+		<property name="phone" type="java.lang.String">
+			<column name="phone" not-null="true"></column>
+		</property>
+		<property name="salesaddress" type="java.lang.String">
+			<column name="salesaddress" not-null="true"></column>
+		</property>
+
+		<!-- 配置一对多，设置inverse属性为true，由多方维护关联关系 -->
+		<set name="img" table="IMG" inverse="true" cascade="all">
+			<key column="house_id"></key>
+			<one-to-many class="com.fsj.entity.Img" />
+		</set>
+		<set name="schedule" table="SCHEDULE" inverse="true" cascade="all">
+			<key column="house_id"></key>
+			<one-to-many class="com.fsj.entity.Schedule" />
+		</set>
+		<set name="pricetrend" table="PRICETREND" inverse="true" cascade="all">
+			<key column="house_id"></key>
+			<one-to-many class="com.fsj.entity.Pricetrend" />
+		</set>
+
+		<!-- 配置多对多 -->
+		<set name="users" table="users_house" cascade="all">
+			<key column="house_id"></key>
+			<many-to-many class="com.fsj.entity.Users" column="users_id"></many-to-many>
+		</set>
+		<set name="recommended" table="recommended_house" cascade="all">
+			<key column="house_id"></key>
+			<many-to-many class="com.fsj.entity.Recommended">
+				<column name="rcustom_id"></column>
+				<column name="rusers_id"></column>
+			</many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>

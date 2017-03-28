@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.fsj.entity.Actiongroup" table="ACTIONGROUP">
+		<id name="agid" type="int" length="11">
+			<generator class="native" />
+		</id>
+		<property name="name" type="java.lang.String">
+			<column name="name" not-null="true"></column>
+		</property>
+		<property name="introduction" type="java.lang.String">
+			<column name="introduction" not-null="true"></column>
+		</property>
+
+		<!-- 配置一对多，设置inverse属性为true，由多方维护关联关系 -->
+		<set name="action" table="ACTION" inverse="true" cascade="all">
+			<key column="actiongroup_id"></key>
+			<one-to-many class="com.fsj.entity.Action" />
+		</set>
+	</class>
+</hibernate-mapping>
